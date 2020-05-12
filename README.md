@@ -74,15 +74,19 @@ diody („OFF”) do ESP8266, które wyświetla te dane na serwerze
 
 
 4. Działanie websocket podczas zdarzenia generowanego przez czujniki.
+
 Dane z czujnika dźwięku są odczytywane co 5 milisekund co zostało zdefiniowane jako
 zmienna interval w pliku „Sound_sensor_arduino”.
+
 Jeśli zostanie wykryta nagła zmiana dźwięku w odniesieniu do poprzedniego odczytu i dioda
-była w danym momencie zapalona to zostanie ona zgaszona. Jeśli dioda
-była zgaszona, to zostanie zapalona. Wiadomość o tym zdarzeniu zostanie przesłana na
-serwer przy pomocy obiektu JSON.
+była w danym momencie zapalona to zostanie ona zgaszona. 
+Jeśli dioda była zgaszona, to zostanie zapalona. 
+Wiadomość o tym zdarzeniu zostanie przesłana na serwer przy pomocy obiektu JSON.
 Dane z czujnika temperatury i wilgotności są odczytywane co 10 sekund,
 co zostało zdefiniowane jako zmienna Tinterval w pliku „Sound_sensor_arduino”.
+
 Jeśli zostanie wykryta zmiana temperatury w odniesieniu do poprzedniego odczytu,
 to na serwer zostanie wysłany JSON z nową wartością temperatury.
+
 Jeśli zostanie wykryta zmiana wilgotności w odniesieniu do poprzedniego odczytu,
 to na serwer zostanie wysłany JSON z nową wartością wilgotności.
