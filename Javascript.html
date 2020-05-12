@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+	<html>
+		<style>
+			input[type="button"]
+			{width: 20%;height: 3.6vh;}
+			
+			.rxd{height: 90vh;}
+			
+			textarea{width: 100%;height: 20%;font-size: 18px;text-align-last: center;}
+		</style>
+		<script>  var msg = JSON.parse(evt.data);switch(msg.type) {case \"on\":document.getElementById(\"rxConsole\").value = msg.value; break;case \"off\": document.getElementById(\"rxConsole\").value = msg.value; break; case \"temp\": document.getElementById(\"temp\").value = msg.value; break; case \"humi\": document.getElementById(\"humi\").value = msg.value; break; }
+			var Socket;
+				Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
+			function start() {
+				Socket.onmessage = function(evt) {
+					var msg = JSON.parse('{"type":"off","value":"OFF"}');
+					 switch(msg.type) {
+						case "on":
+							document.getElementById("rxConsole").value += msg.value;
+							break;
+						case "off":
+							document.getElementById("rxConsole").value += msg.value;
+							break;
+						case "temp":
+							document.getElementById("temp").value += msg.value;
+							break;
+						case "humi":
+							document.getElementById("humi").value += msg.value;
+							break;
+					}
+				//}
+			}
+				function temperature() {
+					var msg = {
+						"type": "temp"
+					};
+					Socket.send(JSON.stringify(msg));
+				}
+				function humidity() {
+					var msg = {
+						"type": "humi"
+					};
+					Socket.send(JSON.stringify(msg));
+				}
+				function on() {
+					var msg = {
+						"type": "on"
+					};
+					Socket.send(JSON.stringify(msg));
+				}
+				function off() {
+					var msg = {
+						"type": "off"
+					};
+					Socket.send(JSON.stringify(msg));
+				}
+		</script>
+		<body onload="javascript:start();">
+			<br>
+			<div class="rxd">
+				<font size="6"><center>Temperatura</center></font>
+				<div><textarea id="temp" readonly></textarea>
+					<br>
+					<input type="button" onclick="temperature();" value="Odczyt temperatury" >
+				</div>
+				<br>
+				<font size="6"><center>Wilgotnosc</center></font>
+				<div>
+					<textarea id="humi" readonly></textarea>
+					<br>
+					<input type="button" onclick="humidity();" value="Odczyt wilgotności" >
+				</div>
+				<br>
+				<font size="6"><center>Oswietlenie</center></font>
+				<div>
+					<textarea id="rxConsole" readonly>
+					</textarea>
+					<br>
+					<input type="button" onclick="on();" value="Zapal" >
+					<input type="button" onclick="off();" value="Zgaś" >
+				</div>
+			</div>
+		</body>
+	</html>";
